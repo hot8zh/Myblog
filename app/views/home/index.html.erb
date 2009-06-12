@@ -1,0 +1,12 @@
+<% for article in @articles %>
+<h2><%= link_to article.title,show_article_path(article.permalink)%></h2>
+		<h3>[分类：<%=link_to article.category.name,category_articles_path(article.category)%>]<%= link_to '<编辑>', edit_article_path(article)  if session[:user]%><%= link_to '<删除>', article, :confirm => '确定删除此篇日志，包括文章评论将一起删除！', :method => :delete if session[:user]%></h3>
+		  <%= sanitize truncate(article.content,:length=>500)%>
+		<p class="date">Posted by <%=article.user.name%>
+        <img src="/images/more.gif" alt="" /> <%= link_to '阅读全文', show_article_path(article.permalink) %>
+        <img src="/images/comment.gif" alt="" /> <%= link_to "评论 (#{article.comments_count})",show_article_path(article.permalink)%>
+        <img src="/images/timeicon.gif" alt="" /> <%=article.created_at.strftime("%Y-%m-%d %H:%M:%S")%></p><br />
+<%end%>
+<%=will_paginate @articles%>
+<%= link_to '新日志', new_category_article_path(@category) if session[:user]%>
+<%= link_to '新分类', formatted_new_category_path(:html)%>

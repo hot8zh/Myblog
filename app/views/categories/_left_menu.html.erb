@@ -1,0 +1,4 @@
+<li><%=link_to "日志首页",root_path%></li>
+<% for category in @categories %>
+<li><%= link_to category.name, category_articles_path(category)%>(<%=category.articles_count%>)</li>
+<%end%>

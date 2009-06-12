@@ -1,0 +1,13 @@
+<p>
+  <b>Name:</b>
+  <%=h @autosave_article.name %>
+</p>
+
+<p>
+  <b>Articles:</b>
+  <%=h @autosave_article.articles_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_autosave_article_path(@autosave_article) %> |
+<%= link_to 'Back', autosave_articles_path %>

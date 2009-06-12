@@ -1,0 +1,3 @@
+<%for article in @lastest%>
+<li><%=link_to truncate(article.title,:length=>9),show_article_path(article.permalink),:title=>article.title%></li>
+<%end%>

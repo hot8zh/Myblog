@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>My Blog</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <%=stylesheet_link_tag "myblog"%>
+    <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="rss/" />
+  </head>
+
+  <body>
+    <div class="content">
+      <div id="header">
+        <div class="title">
+          <h1>喜羊羊与灰太狼</h1>
+          <h3>www.xiyangyangyuhuitailang.com</h3>
+        </div>
+      </div>
+      <div id="main">
+        <div class="center">
+          <%unless flash[:notice].blank?-%>
+            <div class="success"><%=flash[:notice]-%></div>
+          <%end-%>
+          <%=yield%>
+        </div>
+        <div class="leftmenu">
+          <dl>
+            <dt><span class="front">&nbsp;&nbsp;</span>&nbsp;文章存档</dt>
+            <dd>
+              <ul>
+                <%=render :partial=>"/articles/auto_save"%>
+              </ul>
+            </dd>
+          </dl>
+
+
+          <dl>
+            <dt><span class="front">&nbsp;&nbsp;</span>&nbsp;日志分类</dt>
+            <dd>
+              <ul>
+                <%=render :partial=>"/categories/left_menu"%>
+              </ul>
+            </dd>
+          </dl>
+
+          <dl>
+            <dt><span class="front">&nbsp;&nbsp;</span>&nbsp;最新发布</dt>
+            <dd>
+              <ul>
+                <%=render :partial=>"/articles/lastest"%>
+              </ul>
+            </dd>
+          </dl>
+          <dl>
+            <dt><span class="front">&nbsp;&nbsp;</span>&nbsp;最新评论</dt>
+            <dd>
+              <ul>
+                <%=render :partial=>"/comments/lastest_comments"%>
+              </ul>
+            </dd>
+          </dl>
+          <dl>
+            <dt><span class="front">&nbsp;&nbsp;</span>&nbsp;站内统计</dt>
+            <dd>
+              <ul>
+                <li style="color:black">Articles:<%=Article.count_by_sql "select count(*) from articles"%></li>
+                <li style="color:black">Comments:<%=Comment.count_by_sql "select count(*) from comments"%></li>
+              </ul>
+            </dd>
+          </dl>
+        </div>
+      </div>
+      <div id="prefooter">
+      </div>
+      <div id="footer">
+        <div class="padding">
+          Copyright &copy; 2009 My Blog |
+          <%if session[:user].blank?%>
+            <%=link_to "Login",login_path%>
+          <%else%>
+            <%="欢迎您回来：#{session[:user].name}"%> | <%=link_to "Log Out",logout_path%>
+          <%end%>
+
+        </div>
+      </div>
+    </div>
+
+
+
+  </body>
+</html>

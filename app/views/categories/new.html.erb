@@ -1,0 +1,29 @@
+<h1>新建分类</h1>
+
+<% form_for(@category) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.submit "确定" %>
+  </p>
+<% end %>
+
+<fieldset>
+  <legend>分类列表</legend>
+  <table>
+    <th>名字</th>
+    <th>文章数量</th>
+
+    <% for category in @categories %>
+<tr>
+  <td align="center"><%=category.name%></td>
+  <td align="center"><%=category.articles_count%></td>
+  <td><%= link_to '删除', category, :confirm => '你确定要删除这个分类？该分类下的文章及评论将一起删除！', :method => :delete %></td>
+</tr>
+      <%end%>
+  </table>
+</fieldset>

@@ -1,0 +1,22 @@
+<h1>Listing autosave_articles</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Articles</th>
+  </tr>
+
+<% for autosave_article in @autosave_articles %>
+  <tr>
+    <td><%=h autosave_article.name %></td>
+    <td><%=h autosave_article.articles_id %></td>
+    <td><%= link_to 'Show', autosave_article %></td>
+    <td><%= link_to 'Edit', edit_autosave_article_path(autosave_article) %></td>
+    <td><%= link_to 'Destroy', autosave_article, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New autosave_article', new_autosave_article_path %>

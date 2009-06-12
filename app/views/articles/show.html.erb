@@ -1,0 +1,31 @@
+<h2><%=@article.title%></h2>
+<h3>[分类：<%=link_to @article.category.name,category_articles_path(@article.category)%>]<%= link_to '<编辑>', edit_article_path(@article)  if session[:user]%><%= link_to '<删除>', @article, :confirm => '确定删除此篇日志，包括文章评论将一起删除！', :method => :delete if session[:user]%></h3>
+<%=@article.content%>
+<p class="date">Posted by <%=@article.user.name%>
+  <img src="/images/more.gif" alt="" /> 访问：<%=@article.visited_count%>
+  <img src="/images/comment.gif" alt="" /> 评论：<%=@article.comments_count%>
+<img src="/images/timeicon.gif" alt="" /> <%=@article.created_at.strftime("%Y-%m-%d %H:%M:%S")%></p>
+
+<%unless @comments.blank?%>
+  <div class="user_comments"><h2>网友评论</h2>
+    <%for comment in @comments%>
+      <p class="comment"><%= sanitize comment.user_name%>：<%=sanitize comment.title%>&nbsp;[<%=comment.created_at.strftime("%Y-%m-%d %H:%M:%S")%>] <%=link_to "[X]",comment,:method=>"delete",:confirm=>"确定要删除这个评论？" if session[:user]%></p>
+      <%=sanitize comment.content%>
+    <%end%>
+    <%=will_paginate @comments%>
+  </div>
+<%end%>
+
+
+<h2 style="border-top:1px dotted #85621E;padding-top:10px">添加评论</h2>
+<div class="writecomment">
+  <%form_tag article_comments_path(@article) do%>
+    <p><label for="user_name">名字：</label>
+    <%=text_field_tag "comment[user_name]","",:class=>"text"%></p>
+    <p><label for="title">主题：</label>
+    <%=text_field_tag "comment[title]","回复：#{@article.title}",:class=>"text"%></p>
+    <p><label for="content">内容：</label><br/>
+    <%=text_area_tag "comment[content]","",:class=>"text"%></p>
+    <%=submit_tag "提交评论",:class=>"button"%>
+  <%end%>
+</div>
