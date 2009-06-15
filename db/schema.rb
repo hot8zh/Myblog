@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090303064531) do
+ActiveRecord::Schema.define(:version => 20090613043324) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(:version => 20090303064531) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
-    t.integer  "articles_count"
+    t.integer  "articles_count", :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(:version => 20090303064531) do
     t.string   "name"
     t.string   "hashed_password"
     t.string   "salt"
-    t.integer  "articles_count"
+    t.integer  "articles_count",  :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
